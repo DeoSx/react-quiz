@@ -5,9 +5,10 @@ import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz'
 
 class Quiz extends Component {
   state = {
-    quizFinished: true,
+    quizFinished: false,
     activeQuestion: 0,
     answerState: null,
+    results: {},
     quiz: [
       {
         questions: 'What color of the sky?',
@@ -42,13 +43,16 @@ class Quiz extends Component {
       }
     }
 
-
+    const results = this.state.results
     const question = this.state.quiz[this.state.activeQuestion]
 
     if (question.rightAnswerId === answerId) {
-
+      if (!results[question.id]) {
+        results[question.id] = 'success'
+      }
       this.setState({
-        answerState: { [answerId]: 'success' }
+        answerState: { [answerId]: 'success' },
+        results
       })
 
       const timeout = window.setTimeout(() => {
@@ -66,14 +70,25 @@ class Quiz extends Component {
         window.clearTimeout(timeout)
       }, 1000)
     } else {
+      results[question.id] = 'error'
       this.setState({
-        answerState: { [answerId]: 'error' }
+        answerState: { [answerId]: 'error' },
+        results
       })
     }
   }
 
   isQuizFinished() {
     return this.state.quiz.length === this.state.activeQuestion + 1
+  }
+
+  retryHandler = () => {
+    this.setState({
+      quizFinished: false,
+      answerState: null,
+      activeQuestion: 0,
+      results: {}
+    })
   }
 
   render() {
@@ -84,7 +99,11 @@ class Quiz extends Component {
 
           {
             this.state.quizFinished
-              ? <FinishedQuiz />
+              ? <FinishedQuiz
+                results={this.state.results}
+                quiz={this.state.quiz}
+                onRetry={this.retryHandler}
+              />
               : <ActvieQuiz
                 answers={this.state.quiz[this.state.activeQuestion].answers}
                 questions={this.state.quiz[this.state.activeQuestion].questions}
