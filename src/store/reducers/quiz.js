@@ -5,7 +5,8 @@ import {
   FETCH_QUIZ_SUCCESS,
   QUIZ_SET_STATE,
   QUIZ_ACTIVE_QUESTION,
-  QUIZ_FINISHED
+  QUIZ_FINISHED,
+  RETRY_QUIZ
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -61,6 +62,14 @@ export default function quizReducer(state = initialState, action) {
         ...state,
         activeQuestion: action.number,
         answerState: null
+      };
+    case RETRY_QUIZ:
+      return {
+        ...state,
+        quizFinished: false,
+        answerState: null,
+        activeQuestion: 0,
+        results: {}
       };
     default:
       return state;

@@ -5,7 +5,8 @@ import {
   FETCH_QUIZ_SUCCESS,
   QUIZ_FINISHED,
   QUIZ_SET_STATE,
-  QUIZ_ACTIVE_QUESTION
+  QUIZ_ACTIVE_QUESTION,
+  RETRY_QUIZ
 } from './actionTypes';
 import axios from '../../axios/axios-quiz';
 
@@ -123,6 +124,12 @@ export function answerClickHandler(answerId) {
       results[question.id] = 'error';
       dispatch(quizSetState({[answerId]: 'error'}, results));
     }
+  };
+}
+
+export function retryQuiz() {
+  return {
+    type: RETRY_QUIZ
   };
 }
 
