@@ -10,6 +10,13 @@ const links = [
 ];
 
 class Drawer extends Component {
+  componentDidMount() {
+    console.log(this.props);
+    if (this.props.isAuthenticated) {
+      console.log('some text');
+    }
+  }
+
   clickHandler = () => {
     this.props.onClose();
   };

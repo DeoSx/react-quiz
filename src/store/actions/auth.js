@@ -61,3 +61,16 @@ export function authSuccess(token) {
     token
   };
 }
+
+export function autoLogin() {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      dispatch(logout());
+      console.log('false');
+    } else {
+      dispatch(authSuccess(token));
+      console.log('true');
+    }
+  };
+}
