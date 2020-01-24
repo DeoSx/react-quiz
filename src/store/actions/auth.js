@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AUTH_SUCCESS, AUTH_LOGOUT} from './actionTypes';
+import { AUTH_SUCCESS, AUTH_LOGOUT } from './actionTypes';
 
 const apiKey = 'AIzaSyC1nBpUvJGHWr5RFRDnjvxS4oQiG97E2eQ';
 
@@ -67,10 +67,8 @@ export function autoLogin() {
     const token = localStorage.getItem('token');
     if (!token) {
       dispatch(logout());
-      console.log('false');
     } else {
       dispatch(authSuccess(token));
-      console.log('true');
     }
   };
 }

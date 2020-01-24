@@ -1,7 +1,8 @@
-import {AUTH_SUCCESS, AUTH_LOGOUT} from './../actions/actionTypes';
+import { AUTH_SUCCESS, AUTH_LOGOUT } from './../actions/actionTypes';
 
 const initialState = {
-  token: null
+  token: null,
+  unToken: 'asd'
 };
 
 export default function authQuiz(state = initialState, action) {

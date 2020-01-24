@@ -1,13 +1,18 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classes from './Layout.css';
 import MenuToggle from '../../components/Navigation/MenuToggle/MenuToggle';
 import Drawer from '../../components/Navigation/Drawer/Drawer';
+import { autoLogin } from '../../store/actions/auth';
 
 class Layout extends Component {
   state = {
     menu: false
   };
+
+  componentDidMount() {
+    this.props.autoLogin();
+  }
 
   toggleMenuHandler = () => {
     this.setState({
@@ -47,4 +52,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Layout);
+function mapDispatchToProps(dispatch) {
+  return {
+    autoLogin: () => dispatch(autoLogin())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
